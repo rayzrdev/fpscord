@@ -1,5 +1,4 @@
 Dockerfile
-Dockerfile-native
 .env
 .dockerignore
 .gitignore
@@ -8,3 +7,5 @@ Dockerfile-native
 
 node_modules
 .git
+
+dist
