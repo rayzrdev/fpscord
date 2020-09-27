@@ -1,18 +1,12 @@
-import { Snowflake, GuildMember, GuildChannel, TextChannel, Message } from 'discord.js'
-import { Arena, Game } from './types/game'
+import { Snowflake, Message } from 'discord.js'
+import { Invite, Game } from './types/game'
 import { createGame } from './logic/game'
 import { shuffle } from 'lodash'
-
-export type Invite = {
-    from: GuildMember
-    to: GuildMember
-    arena: Arena
-    channel: GuildChannel & TextChannel
-}
 
 export const GameManager = {
     games: [] as Game[],
     invites: [] as Invite[],
+
     findGame(id: Snowflake): Game | undefined {
         return this.games.find(game => game.players.some(player => player.user.id === id))
     },
@@ -41,11 +35,15 @@ export const GameManager = {
 
         const message = await invite.channel.send(':hourglass: Generating game, please wait...')
 
-        this.games.push(createGame({
+        const game = createGame({
             users: shuffle([invite.to, invite.from]),
             arena: invite.arena,
             message
-        }))
+        })
+
+        this.games.push(game)
+
+        await renderGame(game)
 
         return true
     }

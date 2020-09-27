@@ -1,5 +1,12 @@
-import { Message, GuildMember } from 'discord.js'
+import { Message, GuildMember, GuildChannel, TextChannel } from 'discord.js'
 import { IntRange } from './utils'
+
+export type Invite = {
+    from: GuildMember
+    to: GuildMember
+    arena: Arena
+    channel: GuildChannel & TextChannel
+}
 
 export type Arena = {
     name: string
@@ -27,6 +34,7 @@ export type Player = {
 
 export type Game = {
     players: Player[]
+    currentPlayer: number
     arena: Arena
     message: Message
 }
