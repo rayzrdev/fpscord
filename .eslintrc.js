@@ -4,7 +4,12 @@ module.exports = {
         'es2020': true,
         'node': true
     },
-    'extends': 'eslint:recommended',
+    'extends': [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended'
+    ],
+    'parser': '@typescript-eslint/parser',
+    'plugins': ['@typescript-eslint'],
     'parserOptions': {
         'ecmaVersion': 11
     },
